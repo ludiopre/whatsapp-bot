@@ -3,16 +3,14 @@ const bodyParser = require('body-parser');
 const { MessagingResponse } = require('twilio').twiml;
 const { productos } = require('./config');
 const { enviarAlerta } = require('./alerts');
-const { Configuration, OpenAIApi } = require('openai');
+const OpenAI = require('openai'); // OpenAI v4.x
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// Configuración de OpenAI con variable de entorno segura
-const configuration = new Configuration({
+const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
-const openai = new OpenAIApi(configuration);
 
 app.post('/webhook', async (req, res) => {
   const twiml = new MessagingResponse();
@@ -33,29 +31,29 @@ app.post('/webhook', async (req, res) => {
       twiml.message('¡Gracias por tu interés! Un asesor se pondrá en contacto contigo pronto.');
       enviarAlerta(req.body.From, req.body.Body);
     } else {
-      // Respuesta con GPT si no coincide con las opciones anteriores
-      const respuesta = await openai.createChatCompletion({
+      // GPT responde como vendedor
+      const respuesta = await openai.chat.completions.create({
         model: "gpt-3.5-turbo",
         messages: [
           {
             role: "system",
-            content: `Eres un vendedor amable, rápido y profesional de una empresa que ofrece productos institucionales de aseo como papel higiénico, jabón lavaloza y esponjillas multiusos. Tu objetivo es responder preguntas de los clientes de forma clara, concreta y siempre intentar guiar al cierre de la compra.`
+            content: `Eres un vendedor profesional, amable y claro que trabaja para una empresa de productos institucionales de aseo. Tu trabajo es resolver dudas, presentar productos y motivar la compra de papel higiénico, jabón lavaloza y esponjillas multiusos. Sé directo y útil.`
           },
           {
             role: "user",
             content: msg
           }
         ],
-        max_tokens: 100,
-        temperature: 0.7,
+        max_tokens: 150,
+        temperature: 0.7
       });
 
-      const respuestaGPT = respuesta.data.choices[0].message.content;
+      const respuestaGPT = respuesta.choices[0].message.content;
       twiml.message(respuestaGPT);
     }
   } catch (error) {
-    console.error('❌ Error con OpenAI:', error.message);
-    twiml.message('Hubo un error procesando tu mensaje. Por favor intenta más tarde o escribe "menu".');
+    console.error('❌ Error con GPT:', error.message);
+    twiml.message('Ocurrió un error al procesar tu solicitud. Escribe "menu" para ver las opciones disponibles.');
   }
 
   res.writeHead(200, { 'Content-Type': 'text/xml' });
@@ -65,3 +63,4 @@ app.post('/webhook', async (req, res) => {
 app.listen(3000, () => {
   console.log('🤖 Bot con GPT activo en el puerto 3000');
 });
+
