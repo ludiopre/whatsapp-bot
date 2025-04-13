@@ -12,7 +12,7 @@ const transporter = nodemailer.createTransport({
 });
 
 // === CONFIGURACIÓN DE HOJA DE CÁLCULO ===
-const SHEET_ID = 'https://docs.google.com/spreadsheets/d/1KbbnY6AxQZru5tBxJFLlsuNziWQAVlSn-Iks_ytQkA0/edit?gid=0#gid=0'; // reemplaza con el ID real de tu hoja
+const SHEET_ID = '1KbbnY6AxQZru5tBxJFLlsuNziWQAVlSn-Iks_ytQkA0'; // reemplaza con el ID real de tu hoja
 const doc = new GoogleSpreadsheet(SHEET_ID);
 
 exports.enviarAlerta = async (numero, mensaje) => {
