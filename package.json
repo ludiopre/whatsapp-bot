@@ -1,16 +1,17 @@
 {
-  "name": "whatsapp-bot",
+  "name": "autobot-api",
   "version": "1.0.0",
-  "description": "Bot corporativo de WhatsApp para productos de aseo",
+  "description": "API para automatizar atención y ventas por WhatsApp",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
-  "dependencies": {"openai": "^4.0.0"
-    "body-parser": "^1.20.2",
+  "dependencies": {
     "express": "^4.18.2",
-    "nodemailer": "^6.9.3",
+    "body-parser": "^1.20.2",
     "twilio": "^4.15.0",
-    "google-spreadsheet": "^3.3.0"
+    "nodemailer": "^6.9.3",
+    "google-spreadsheet": "^3.3.0",
+    "openai": "^4.0.0"
   }
 }
