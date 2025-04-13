@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer');
 const { GoogleSpreadsheet } = require('google-spreadsheet');
-const creds = require('./google-credentials.json'); // Archivo JSON que subiste
+const creds = JSON.parse(process.env.GOOGLE_CREDENTIALS); // Archivo JSON que subiste
 
 // === CONFIGURACIÓN DE CORREO ===
 const transporter = nodemailer.createTransport({
