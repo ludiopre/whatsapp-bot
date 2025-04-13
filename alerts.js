@@ -20,8 +20,8 @@ exports.enviarAlerta = async (numero, mensaje) => {
 
   // === ENVÍA CORREO ===
   const mailOptions = {
-    from: 'tucorreo@gmail.com',
-    to: 'tucorreo@gmail.com',
+    from: 'ludiopre@gmail.com',
+    to: 'ludiopre@gmail.com',
     subject: '🚨 Cliente interesado en comprar',
     text: `📱 Número: ${numero}\n💬 Mensaje: ${mensaje}\n🕒 Fecha y hora: ${fecha}`
   };
