@@ -1,6 +1,5 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const productos = require('./routes/productos');
 const webhook = require('./routes/webhook');
 const compras = require('./routes/compras');
 const alertas = require('./routes/alertas');
