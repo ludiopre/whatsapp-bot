@@ -6,7 +6,7 @@ const creds = JSON.parse(process.env.GOOGLE_CREDENTIALS); // Archivo JSON que su
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'tucorreo@gmail.com',         // Reemplaza con tu correo real
+    user: 'ludiopre@gmail.com',         // Reemplaza con tu correo real
     pass: 'neijpaurhyppbfwj'            // Tu clave de aplicación de Gmail
   }
 });
